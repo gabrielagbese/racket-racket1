@@ -1,0 +1,115 @@
+HLPL3 - Seminar 7 (maybe or some other number idk I missed a couple of classes)
+
+- last week, no class? ah no prof was in France.
+--> lambda notation in python was the topic of last class?
+- TEST IN 2 WEEKS:
+	- will cover list related functions
+	- set related functions
+	pattern matching? check this out
+
+
+
+------------------ racket code:
+
+; set is like a bag which contains several objects
+; sets are simulated by lists
+; for example (list 1 2 3) is the same as (list 2 1 3) because in a set there is no order
+; (list 1 2 3) = (list 3 2 1) =  (list 2 1 3) because there is no order
+; (list 2 1 3) = (list 1 2 1 3) because sets do not care about duplicates.
+; in case of a set, the only thing that is interesting is:
+;   -memebership
+; member x set
+; is x an element of the set?
+;(writeln (member 5 (list 1 16))) ; #f
+; in Racket, if something is not false then it is true
+
+; how to implement (member x lst)?
+; if lst is empty, then it is false, because the empty set has no elements
+; if ls is not empty, then we split in to head and tail
+; if x = head, then we have found it, the answer is true.
+; Otherwise the tail still may contain x, so we have to make a recursive call as it is usual on the tail
+(define (my-member x param-list) 
+    (match param-list
+        [(list) #f]
+        [(cons head tail)
+            (if (= x head) #t (my-member x tail))
+        ]
+    )
+)
+(writeln (my-member 1 (list 2 10 5)))
+(writeln (my-member 1 (list 2 10 1)))
+
+
+; theory: any set related functions based on member-ship test.
+; subset A B
+; A is a subset of B iFF all elements of A is an element of B.
+; in other words, the head of A is an element of B, and the rest also which is checked by recursive call.
+; note that the empty set is a subset for any set.
+; even empty set is a subset of empty set.
+; define the subset function
+(define (subset A B)
+    (match A
+        [(list) #t]
+        [(cons headA tailA) ;how to split A
+            (if(member headA B)  (subset tailA B) #f)
+        ]
+    )
+)
+(writeln (subset (list 1 2) (list 1 2 3 4)))
+(writeln (subset (list 4 2) (list 1 2 3 4)))
+(writeln (subset (list 13 20) (list 1 2 3 4)))
+
+
+; set equality?
+; setequ A B
+; A and B, as a set, are equal iff A is a subset of B and B is a subset of A
+;implementing
+(define (setequ A B) 
+    (and (subset A B) (subset B A))
+)
+(writeln (setequ (list 1 2 3) (list 1 3 2))) ;#t
+(writeln (setequ (list 1 2 3) (list 1 3 5))) ;f
+
+
+; Union of A and B
+; union of A and B is a set which contains those elements which are elements of either A or B
+; we do recursion on A
+; if A is empty, then we return B
+; if the head of A is an element of B, then we can throw it away because anyway can be found in B
+; otherwise, we should keep it.
+; throw away = recursive call
+; keep it = (cons headA recursive-call)
+(define (union A B)
+    (match A
+        [(list) B] ;if A is empty, then we return B
+        [(cons headA tailA)
+            (if (member headA B) (union tailA B) (cons headA (union tailA B)) )
+        ]
+    )
+)
+(writeln (union (list 1 20 0 4 5) (list 1 4 5)) )
+
+; Intersection of A and B
+; we do recursion on A
+; if A is empty, we return empty
+; if the head of A is an elem of B then we keep it, otherwise we throw it away
+(define (intersection A B)
+    (match A
+        [(list) (list )] ;if A is empty we return empty set
+        [(cons headA tailA)
+            (if (member headA B) (cons headA (intersection tailA B)) (intersection tailA B))
+        ]
+    )
+)
+(writeln (intersection (list 1 20 0 4 5) (list 1 4 5)) )
+(writeln (intersection (list 1 2 3) (list 1 2 5)) )
+
+
+; how to merge two lists? input lists must be in order, and the result list should be in order too??????m3rftsh  --will be on the test
+; merge means that we have two input lists both are ordered and the output is an ordered list.
+
+; power set A = is a set which contains all subsets of A
+; powerset () = ( () ) ; a set that contains the empty set and not the empty set
+; powerset (1) = ( () (1))
+; powerset (1 2) = ( () (1) (2) (1 2))
+; number of element of a powerset of a list L is 2^n where n is the number of elements in the list L.

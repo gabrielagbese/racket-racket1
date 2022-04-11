@@ -1,0 +1,98 @@
+###this is what I typed in the online racket editor for today
+
+(define x 5)        ;this is a comment x = 5
+
+;(writeln x)         ; print(x)
+;(define y (+ 4 1))  ; y=4+1 Racket use a preorder traversal: root+left+rigth
+;(writeln y)
+; synax of define: (define name expression)
+;
+; lambda expression: the lamda expression creates a nameless function with one paramater and with an evaluation rule. ie: (lambda param evaluationRule)
+; Dj: LAMBDA FUNCTION HAS NO NAME. 39EL 3LIHA 3FK.
+
+; syntax of lambda: (lambda (param-list) eval-rule)
+(define id (lambda (x) x)) ;this creates the id function
+;(writeln (id 5))
+
+;syntax of function call: (func-name actual-params)
+;(writeln (id 5))
+
+;lets defin increment
+(define inc (lambda (x) (+ x 1)) )
+;(writeln (inc 6))
+
+;define dec
+(define dec (lambda (x) (- x 1) ))
+;(writeln (dec 10) )
+
+;define square
+(define square (lambda (x) (* x x)))
+;(writeln (square 9))
+
+;add function
+(define add (lambda (x y) (+ x y) ))
+;(writeln (add 6 5))
+
+;substract func
+(define substract (lambda (x y) (- x y) ))
+;(writeln (substract 10 5))
+
+;OTHER WAY OF CREATING FUNCTION:
+; synax of v1 define: 
+;   (define name expression)
+; syntax of v2 define:
+;   (define (fun-name params) eval-rule)
+(define (id x) x)
+(define (inc x) (+ x 1))
+(writeln (inc 99))
+(define (dec x) (- x 1) )
+(define (square x) (* x x) )
+(define (add x y) (+ x y) )
+(writeln (add 6 4) )
+(define (sub x y) (- x y) )
+(writeln (sub 6 4) )
+(define (multiply x y) (* x y) )
+(writeln (multiply 6 4) )
+(define (div x y) (/ x y) )
+
+
+; the if expression
+; syntax of if: (if (test) true-branch-exp false-branch-exp)
+; max is 2 param function. it returns its bigger param.
+(define (max a b)
+    (if (> a b) a b)
+)
+(writeln (max 10 15))
+;min func
+(define (min a b)
+    (if(< a b) a b)
+)
+(writeln (min 10 99))
+
+; max with 3 chars      ; we need and: (and exp1 exp2...)
+; idea: check if x is bigger than y and z. if yes, return x
+;       otherwise, check if y is bigger than z
+(define (max3 x y z)
+    (if(and (> x y)(> x z)) x 
+        (if (> y z) y z)
+    )
+)
+(writeln (max3 10 99 223))
+
+(define (min3 a b c)
+    (if (and (< a b)(< a c)) a
+        (if (< b c) b c)
+        )
+)
+(writeln (min3 233 25 0))
+
+; create max4 without if
+(define (max4 a b c d) (max a (max3 b c d)) )
+(writeln (max4 10 25 23 90) )
+
+(define (maxx22 a b c d) (max a (max b (max c d))))
+(writeln (maxx22 10 54 3 200))
+
+; ID(x) = lambda*x*x gets the same value and return the same value.
+; INC(x)
+; DEc(x) = ID(x) -1 

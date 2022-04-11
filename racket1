@@ -1,0 +1,86 @@
+
+
+The family of programming languages has 2 major branches: imperative prog lang, declarative prog lang.
+
+if we study a programming lang, there are 2 questions: what to solve and how to solve?
+if u study a prog lang, u have to answer both questions.
+
+imperative proglang concentrate on how to solve. Declarative proglang concentrate on what to solve.
+In the imperative side, the programmer may chose freely which algorith to apply and how to implement that algorithm.
+We use to say that we might be stupid, freely, in the imperative side. This side is really dangerous. If you would
+like than we can open and close the same file one million time. If you do that, then your hardrive will be destroyed.
+
+On the declarative side, we have to state what is the problem; what to solve. This side is easy, we are near to 
+mathematics. We state the problem in some language and the framework decides which algoritghm to apply and not the
+programmer. This side is more safe. But from historical reasons, the imperative proglang are much more .
+
+On the other side, the two sides are converging to each other so we have techniques in Java which are coming from
+functional programming and also in functional programming we have classes and objects from the other side.
+
+Let us discuss the following:
+- A=5; 
+- 5=A; // will give error message in any imperative languages. But not in case of declarative ones.
+	=> In case of imperative, equal sign means assignment. 
+	=> Equals means pattern matching in case of declarative proglang.
+Let us check the syntax of assignment: left-value = expression. left-value can be anything which has an address in the memory. 
+Syntax of pattern matching: expression = expression. you can see that pattern matching has no special sides.
+you can say both A=5 and 5=A (bcz pattern matching has no special side). But this is not true for assignment.
+
+
+---------------------------------- Expressions on the imperative side:
+- There are five kinds of expressions:
+1- Literal: e.g: 5, 'apple', 'random', 3.14, true. These are Literals. Literal has two attributes, Type and Value.
+for example 5 has the type int and the value 5. True has the type boolean and the value true. 'Apple' has the type
+string and the value apple.
+2- Constant: 
+	in Java, you creata constant like 'final int x = 5;'. Constant has 3 attributes. They are Type, Value and name.
+	type of x is int, value 5 and name x.
+3- Variable: ex: int B = 5; 
+	Variable has 4 attributes: type: int, name: b, value: 5 and memory address: cannot be accessed in java/in C: @b will get us the address.
+
+4- Composed expressions: -- attributes: type and value
+	a. Operators: 3+5
+	b. Function call: Math.sin(0)
+	So each expression has type and value.
+
+
+We had disucssed that A=5 and 5=A. Now, we shal discuss A=5 and A=6. this is fine in python/jave but not on the declarative side 
+because = means pattern matching. A=5 is okey, but pattern matching has a side effect. As a side effect, A gets the value 5.
+Now, the second one means the following, 5=6 which is bonkers. This is will cause an error.
+
+Let us study this very carefully. 
+	- A=5, the question is: variable A matches the literal 5? Answer is yes. because a variable match everything. But as a side effect
+variable A gets the value 5. So from now on, A means 5.
+	- A=6, since A means 5 this statement is compiled to 5=6 (WHICH IS BONKERS MATE OW) so the question is literal 5 matches liteal 6??
+	NOOO!! because literal 5 matches only itself and nothing else. The statement will be unsuccessful.
+	
+In the declarative side, we have two branches: functional proglang and logical proglang.
+- Examples for functional proglang: The very first is: LISP, this was back in the 60s; It was one of the first ones.
+The immediate successor was SCHEME, after it RACKET, ML, SML, HASKELL, CLEAN and ERLANG and many more.
+- Logical progamming languages, there is only one: PROLOG.
+
+Let us carefully discuss Sideeffects:
+	. Please write an essay with the title 'why it is dangerous to use gloabal variables'
+	. What does it mean 'side effect'.  essay should be at least 2 pages. PRINTED PLZ. USE YOUR FAVOURITE TYPE WRITER
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

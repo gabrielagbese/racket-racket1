@@ -1,0 +1,22 @@
+lang racket
+
+(define (power-set xs)
+  (cond
+    [(empty? xs) (list empty)]                 ; the empty set has only empty as subset
+    [(cons? xs)  (define x  (first xs))        ; a constructed list has a first element
+                 (define ys (rest  xs))        ; and a list of the remaining elements
+                 ;; There are two types of subsets of xs, thouse that
+                 ;; contain x and those without x.
+                 (define with-out-x            ; the power sets without x
+                   (power-set ys))                 
+                 (define with-x                ; to get the power sets with x we 
+                   (cons-all x with-out-x))    ; we add x to the power sets without x
+                 (append with-out-x with-x)])) ; Now both kind of subsets are returned.
+
+(define (cons-all x xss)
+  ; xss is a list of lists
+  ; cons x onto all the lists in xss
+  (cond
+    [(empty? xss) empty]
+    [(cons?  xss) (cons (cons     x (first xss))    ; cons x to the first sublist
+                        (cons-all x (rest xss)))])) ; and to the rest of the sublists

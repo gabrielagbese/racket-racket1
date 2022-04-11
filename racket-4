@@ -1,0 +1,152 @@
+
+
+
+(define myList1 (list 1 2 3))
+(writeln myList1)
+
+(define myList2 '(1 2 3 4 5))
+(writeln myList2)
+
+(define myList3 (cons 1 (cons 2 (cons 3 empty))))
+(writeln myList3)
+
+; recall that  list is a recursive data structure
+; because a list consists of head and tail, and the tail is a list
+; recursive data structures should be processed in a recursive way.
+; The design pattern is the following:
+; the base condition (i.e the condition which stops the recursion ) is that the input list is empty. 
+; in the recursion branch, we split the input list into: head and tails.
+; head:
+(writeln (first myList1)) ;1
+; tail:
+(writeln (rest myList1))  ;(2,3)
+; then I call myself recursively on the tail
+; defining a fucntion called lenght
+
+(define (length lst)
+    (cond 
+        ;base condition, non recursive branch
+        [(empty? lst) 0]
+        ;recursive branch, if lst is not empty we split into head and tails using define
+        [else 
+            (define head (first lst))
+            (define tail (rest lst))
+            ; tail value is computed by recursive call on the tail
+            (define tail-value (length tail))
+            ; we study some examples:
+            ; (length (list 5 7 1 4)) = 4) = 1 + 3 = (+ 1 tail-value) 
+            (+ 1 tail-value)
+        ]
+        ))
+(writeln (length (list 5 7 6 9) ))
+
+
+
+; sum lst, 
+(define (sum lst)
+    (cond
+        [(empty? lst) 0]
+        [else
+            (define head (first lst))
+            (define tail (rest lst))
+            (define tail-value (sum lst))
+            (+ head tail-value)
+        ]
+))
+(writeln (sum (list 1 2 3)))
+
+
+; prod recursive function here
+(define (length lst)
+    (cond 
+        ;base condition, non recursive branch
+        [(empty? lst) 0]
+        ;recursive branch, if lst is not empty we split into head and tails using define
+        [else 
+            (define head (first lst))
+            (define tail (rest lst))
+            ; tail value is computed by recursive call on the tail
+            (define tail-value (length tail))
+            ; we study some examples:
+            ; (length (list 5 7 1 4)) = 4) = 1 + 3 = (+ 1 tail-value) 
+            (+ 1 tail-value)
+        ]
+        ))
+; (writeln (length (list 5 7 6 9) ))
+
+
+
+; sum lst, 
+(define (sum lst)
+    (cond
+        [(empty? lst) 0]
+        [else
+            (define head (first lst))
+            (define tail (rest lst))
+            (define tail-value (sum tail))
+            (+ head tail-value)
+        ]
+))
+
+;(writeln (sum (list 2 4 6)))
+
+; prod lst - computes the product of the list
+(define (prod lst)
+    (cond
+        [(empty? lst) 1]
+        [else 
+            (define head (first lst))
+            (define tail (rest lst))
+            (define tail-value (prod tail))
+            (* head tail-value)
+        ]
+    )
+)
+;(writeln (prod (list 4 5 2)))
+;(writeln (prod (list)))
+
+;even-sum lst, sum up even numbers in lst
+;hint: we can use even? to check if a number is even or not
+(define (even-sum lst)
+    (cond
+        [(empty? lst) 0]
+        [else
+            (define head (first lst) )
+            (define tail (rest lst) )
+            (define tail-value (even-sum tail) )
+            ; if the head is even, then head + tail-value
+            ; else head not even, then tail-value
+            (if (even? head) (+ head tail-value) tail-value )
+        ]
+    )
+)
+;(writeln (even-sum (list 4 5 1 10 2)))
+
+;wirte odd-summ
+(define (odd-sum lst)
+    (cond
+        [(empty? lst) 0]
+        [else
+            (define head (first lst) )
+            (define tail (rest lst) )
+            (define tail-value (odd-sum tail) )
+            ; if the head is even, then head + tail-value
+            ; else head not even, then tail-value
+            (if (odd? head) (+ head tail-value) tail-value )
+        ]
+    )
+)
+(writeln (odd-sum (list 4 5 1 10 2)))
+
+
+
+
+; how to know if a var is a list
+;(writeln (list? myList1)) ;reutrns #t which stands for true
+; is a var empty?
+;(writeln (empty? myList1)) ;returns #f which stands for false
+
+
+---homework: write an essay on the 4 parts of this blog. 
+	    essay should be at least 2 pages long.
+	    link to the blog: https://www.joelonsoftware.com/2000/10/02/painless-functional-specifications-part-1-why-bother/

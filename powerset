@@ -20,3 +20,5 @@ lang racket
     [(empty? xss) empty]
     [(cons?  xss) (cons (cons     x (first xss))    ; cons x to the first sublist
                         (cons-all x (rest xss)))])) ; and to the rest of the sublists
+
+(power-set '(a b c))

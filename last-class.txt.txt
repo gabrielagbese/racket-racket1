@@ -1,0 +1,100 @@
+- Hello this is the last class wohooo! test next week tho:/
+- NEXT WEEK TEST TOPICS: CONTRACTS AND HIGHER ORDER FUNCTION
+
+todays topic: higher order functions letssgoooo
+
+; we say that a function is a higher order function iff it has a function parameter
+; examples:
+; map fun lst
+; filter fun lst
+;(writeln (filter number? (list 1 2 "hell" 6)))
+;(writeln (filter string? (list 1 2 "hell" 6)))
+;(writeln (filter even? (list 1 2 7 6))) ; can only take integers. passing a string will result into a contract violation (specific error)
+(writeln (filter even? (filter number? (list 1 "hell "2 6))))
+(define (bigger-than-5 x) (> x 5) )
+;(writeln (filter bigger-than-5 (list 4 2 0 1 66 7)))
+
+; let us talk about maps noww. not the marko polo kind
+;(writeln (map sqrt (list 1 4 64 121)))
+(define (inc x) (+ x 1))
+;(writeln (map inc (list 5 6 7 8)))
+; find the length of each string in a list
+;(writeln (map string-length (list "ino" "bean" "toast")))
+(define salary-list (list 100.0 120.0 122.5))
+(define (plus-10-percent x) (* x 1.1) )
+;(writeln (map plus-10-percent salary-list) )
+
+; implement my-filter and my-map
+(define/contract (my-filter f lst)
+    (-> (-> any/c boolean?) list? list?)
+    (cond
+        [(empty? lst) empty]
+        [else
+            (define head (first lst))
+            (define tail (rest lst))
+            (define tail-value (my-filter f tail))
+            (if (f head)
+                (cons head tail-value)
+                tail-value 
+            )
+        ]
+    )
+)
+; (writeln (my-filter number? (list 8 9 "ge" 99 )))
+; now write my-map
+(define/contract (my-map f lst) 
+    (-> (-> any/c any/c) list? list?)
+    (cond
+        [(empty? lst) empty]
+        [else 
+            (define head (first lst))
+            (define tail (rest lst))
+            (define tail-value (my-map f tail))
+            (cons (f head) tail-value)
+        ]
+    )
+)
+;(writeln (my-map ))
+;(writeln (my-map plus-10-percent salary-list) )
+
+
+; contract of my-map and my-filter
+; recall contract
+(define/contract (add a b)
+    (-> number? number? number?)
+    (+ a b)
+)
+
+;define contract of (my-string-length str)
+(define/contract (my-string-length str)
+    (-> string? number?)
+    (string-length str)
+)
+
+(define/contract (my-sum list)
+    (-> list? number?)
+    (match lst
+        [(list) 0]
+        [(cons head tail)
+            (define tail-value (my-sum tail))
+            (+ head tail-value)
+        ]
+    )
+)
+
+;every fun list, it checks whether all elements of lst fulfills fun or not
+; all the elements are even?
+(define/contract (all-even lst)
+    (-> (any/c boolean?) list? boolean?)
+     (cond
+        [(empty? lst) #t]
+        [else 
+            (define head (first lst))
+            (define tail (rest lst))
+            (define tail-value (all-even tail))
+            (if (odd? head) #f tail-value)
+        ]
+    )
+)
+(writeln (all-even (list 2 4 2 6  4) ))
+
